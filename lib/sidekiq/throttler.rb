@@ -39,6 +39,7 @@ module Sidekiq
       rate_limit.exceeded do |delay|
         if (@options["delay_factor"].exists?)
           delay = delay * rand(1..@options["delay_factor"])
+        end
         worker.class.perform_in(delay, *msg['args'])
       end
 
